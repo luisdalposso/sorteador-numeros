@@ -1,29 +1,32 @@
-function sortear() {
+function sortear() {s
     let quantidade = parseInt(document.getElementById("quantidade").value);
     let de = parseInt(document.getElementById("de").value);
     let ate = parseInt(document.getElementById("ate").value);
-    let listaSorteados = [];
-    
-    if (quantidade > (ate - de)){
-        alert("Quantidade é maior que o intervalo inserido (de -> para)")
+
+    if (quantidade == null || de == null || ate == null || isNaN(quantidade) || isNaN(de) || isNaN(ate)) {
+        alert("Nenhum campo pode ficar em branco ou conter valores inválidos.");
         return;
     }
 
-    while (listaSorteados.length < quantidade){
-        let numeroSorteado = Math.floor(Math.random() * (ate - de + 1) + de);
-        if(listaSorteados.includes(numeroSorteado)){
-            console.log("ja estava na lista")
-        } else {
-            listaSorteados.push(numeroSorteado)
+    if (quantidade > (ate - de + 1)) {
+        alert("Quantidade é maior que o intervalo inserido (de -> para)");
+        return;
+    }
+
+    let listaSorteados = [];
+    while (listaSorteados.length < quantidade) {
+        let numeroSorteado = Math.floor(Math.random() * (ate - de + 1)) + de;
+        if (!listaSorteados.includes(numeroSorteado)) {
+            listaSorteados.push(numeroSorteado);
         }
     }
 
-    document.getElementById("resultado").innerHTML = "Os numeros sorteados foram:" + listaSorteados;
-
+    document.getElementById("resultado").innerHTML = "Os números sorteados foram: " + listaSorteados.join(", ");
 }
 
-function reiniciar(){
+function reiniciar() {
     document.getElementById("quantidade").value = null;
     document.getElementById("de").value = null;
     document.getElementById("ate").value = null;
+    document.getElementById("resultado").innerHTML = "";
 }
